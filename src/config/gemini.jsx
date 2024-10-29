@@ -3,6 +3,7 @@ import {
     HarmCategory,
     HarmBlockThreshold,
   } from "@google/generative-ai";
+
   
   const apiKey = import.meta.env.VITE_GEN_AI_API_KEY; // Ensure this is set in your environment
   const genAI = new GoogleGenerativeAI(apiKey);
@@ -16,7 +17,7 @@ import {
   };
   
   const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: "gemini-1.0-pro	",
     generationConfig,
   });
   
@@ -39,7 +40,7 @@ import {
       const decision = result.response.text().trim() || "Unable to determine";
   
       // Best courses
-      const prompt_2 = `${decision} was suggested by a friend. Give me the 5 best free courses with links to master this field, ordered from beginner to advanced. Only list 5 links, no description.`;
+      const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should me completed and give in 5 points descriptivily   `;
       console.log("Prompt for courses:", prompt_2);
   
       const result_2 = await model.generateContent(prompt_2);
@@ -51,7 +52,7 @@ import {
       const courseDisplay = result_2.response.text().trim() || "No courses found";
   
       //Trending projects
-      const prompt_3 = `For a ${decision} career, suggest 5 trending projects to build my skills at ${level} level.`;
+      const prompt_3 = `For a ${decision} career, suggest 5 trending projects to build my skills at ${level} level,i need it in 5 points .`;
       console.log("Prompt for projects:", prompt_3);
   
       const result_3 = await model.generateContent(prompt_3);
