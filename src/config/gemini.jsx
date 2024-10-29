@@ -5,7 +5,7 @@ import {
   } from "@google/generative-ai";
 
   
-  const apiKey = "AIzaSyCdbEo7dwJ6o6K7KYZyqlqV2jSrYlA8Gig"; // Ensure this is set in your environment
+  const apiKey = import.meta.env.VITE_GEN_AI_API_KEY; // Ensure this is set in your environment
   const genAI = new GoogleGenerativeAI(apiKey);
   
   const generationConfig = {
