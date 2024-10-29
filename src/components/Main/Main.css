@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 22px;
-    padding: 20px;
+    padding: 20px 20px 0px;
     color: #585858;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .main .greet span{
-    background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
+    background: -webkit-linear-gradient(16deg, #00c6ff, #0072ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -141,6 +141,7 @@ form {
 
   .back-button{
     background: linear-gradient(90deg, #e0f7ff, #cceeff);
+    margin-bottom: 20px;
     color: #0078D4;
     padding: 10px 20px;
     font-weight: 500;
@@ -234,35 +235,44 @@ form {
 }
 
 .loader {
-    width: 100%; /* Full width of the parent */
     display: flex;
-    flex-direction: column;
-    min-height: 100px; /* Minimum height to maintain space during loading */
-    padding: 20px; /* Space around the loader */
-    justify-content: flex-start; /* Align items at the top */
-    align-items: stretch; /* Allow items to stretch and fill space */
-}
-
-.loader hr {
-    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .loader hr {
+    width: 12px;
+    height: 50px;
+    margin: 0 4px;
     border: none;
-    background-color: #f6f7f8;
-    background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
-    background-size: 800px 50px;
-    height: 20px;
-    width: 100%; /* Ensure it takes full width of the loader */
-    animation: loader 3s infinite linear;
-    margin: 0; /* Remove default margin to maintain spacing */
-}
-
-@keyframes loader {
+    background-color: #3498db;
+    animation: loader 1s linear infinite;
+  }
+  
+  .loader hr:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  .loader hr:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .loader hr:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  
+  @keyframes loader {
     0% {
-        background-position: -800px 0px;
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(2);
     }
     100% {
-        background-position: 800px 0px;
+      transform: scaleY(1);
     }
-}
+  }
 
 
 .cards-container {

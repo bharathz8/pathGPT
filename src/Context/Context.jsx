@@ -28,20 +28,22 @@ export const ContextProvider = (props) => {
     };
 
     const formatResponse = (text) => {
-        // Step 1: Format bold text with '**'
+        // Step 1: Apply bold to sections between '**'
         let formattedText = text
             .split("**")
             .map((segment, index) => (index % 2 === 1 ? `<b>${segment}</b>` : segment))
             .join("");
-
-        // Step 2: Break the text into bullet points for each point (assuming "\n", "1.", "-", etc.)
-        formattedText = formattedText
-            .split(/(?:\d\.\s|- )|\n/g)  // Splits on '1. ', '- ', or '\n' to capture points
-            .filter(point => point.trim() !== "")  // Remove empty segments
-            .map(point => `<li>${point.trim()}</li>`)  // Wrap each point in <li> tags
-            .join("");  // Join the list items as a single string
-
-        return `<ul>${formattedText}</ul>`;  // Wrap all list items in <ul> tags
+    
+        // Step 2: Break text into lines and only add bullets to non-empty lines
+        const listItems = formattedText
+            .split(/(?:\d\.\s|- )|\n/g)  // Split on '1. ', '- ', or '\n'
+            .map(point => point.trim())  // Trim whitespace from each line
+            .filter(point => point !== "")  // Remove empty lines
+            .map(point => `<li>${point}</li>`)  // Wrap each non-empty line in <li> tags
+            .join("");  // Join all <li> items as a single string
+    
+        // Wrap in <ul> tags only if there are list items
+        return listItems ? `<ul>${listItems}</ul>` : "";  
     };
 
     const newChat = () => {
@@ -70,10 +72,10 @@ export const ContextProvider = (props) => {
         setDecision("");
         setCourses("");
         setProjects("");
-
+    
         try {
             const { desiredSkills, education, technologies, codingLevel, otherProjects } = formData;
-
+    
             const prompt = {
                 education,
                 technologies,
@@ -81,22 +83,22 @@ export const ContextProvider = (props) => {
                 projects: otherProjects,
                 firstCourse: desiredSkills
             };
-
+    
             const { decision: responseDecision, courseDisplay, project } = await run(prompt);
-
+    
             // Format each part for bolding and structured bullet points
-            setDecision(formatResponse(responseDecision));
-            setCourses(formatResponse(courseDisplay));
-            setProjects(formatResponse(project));
-
+            setDecision(formatResponse(responseDecision || "No decision available."));
+            setCourses(formatResponse(courseDisplay || "No courses available."));
+            setProjects(formatResponse(project || "No projects available."));
+    
             setRecentPrompt(input);
             setPrevPrompt(prev => [...prev, input]);
-
+    
         } catch (error) {
             console.error("Error fetching response:", error);
             setResultData("An error occurred. Please try again.");
         } finally {
-            setLoading(false);
+            setLoading(false);  // Ensures loading stops regardless of success or error
             setInput("");
         }
     };

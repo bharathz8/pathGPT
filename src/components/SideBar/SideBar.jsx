@@ -33,20 +33,6 @@ const SideBar = () => {
 
                 </div> : null}
             </div>
-            <div className='bottom'>
-                <div className='bottom-item recent-entry'>
-                    <img src={assets.question_icon} alt='help-button' />
-                    {extended ? <p>Help</p> : null}
-                </div>
-                <div className='bottom-item recent-entry'>
-                    <img src={assets.history_icon} alt='activity-button' />
-                    {extended ? <p>Activity</p> : null}
-                </div>
-                <div className='bottom-item recent-entry'>
-                    <img src={assets.setting_icon} alt='settings-button' />
-                    {extended ? <p>Settings</p> : null}
-                </div>
-            </div>
         </div>
     )
 }

@@ -31,13 +31,13 @@ const Main = () => {
         {!showResult ? (
           <>
             <div className='greet' style={{ marginTop: '0.313rem', marginBottom: '0.313rem' }}>
-              <p><span>Enter the input</span></p>
-              <p>To get your desired </p>
+              <p><span>Discover Your Future:</span></p>
+              <p>AI-Driven Career Recommendations</p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div>
-                <label>Desired Skills:</label>
+                <label>Desired Career:</label>
                 <input
                   type="text"
                   name="desiredSkills"
@@ -57,7 +57,7 @@ const Main = () => {
               </div>
 
               <div>
-                <label>Technologies Known:</label>
+                <label>Skills Known:</label>
                 <input
                   type="text"
                   name="technologies"
@@ -67,7 +67,7 @@ const Main = () => {
               </div>
 
               <div>
-                <label>Level of Coding:</label>
+                <label>Levels</label>
                 <select name="codingLevel" value={formData.codingLevel} onChange={handleChange}>
                   <option value="">Select Level</option>
                   <option value="Beginner">Beginner</option>
@@ -77,7 +77,7 @@ const Main = () => {
               </div>
 
               <div>
-                <label>Any Other Project:</label>
+                <label>Any Other Experience:</label>
                 <textarea
                   name="otherProjects"
                   value={formData.otherProjects}
@@ -91,11 +91,9 @@ const Main = () => {
         ) : (
           <div className='result'>
             <div className='result-title'>
-              <button className='back-button' onClick={newChat}>Back</button>
               <p>{recentPrompt}</p>
             </div>
             <div className='result-data'>
-              <img src={assets.gemini_icon} alt='gemini-icon' />
               {loading ? (
                 <div className='loader'>
                   <hr />
@@ -104,22 +102,22 @@ const Main = () => {
                 </div>
               ) : (
                 <div>
-                <div>
+                <button className='back-button' onClick={newChat}>Back</button>
+                  <div>
                     <p className="card-title">Career Suggestion</p>
                     <div className="card-content" dangerouslySetInnerHTML={{ __html: decision }}></div>
                   </div>
-                <div className="cards-container">
-                  <div className="card">
-                    <p className="card-title">Courses</p>
-                    <div className="card-content" dangerouslySetInnerHTML={{ __html: courses }}></div>
-                  </div>
-                  <div className="card">
-                    <p className="card-title">Projects</p>
-                    <div className="card-content" dangerouslySetInnerHTML={{ __html: projects }}></div>
+                  <div className="cards-container">
+                    <div className="card">
+                      <p className="card-title">Roadmap</p>
+                      <div className="card-content" dangerouslySetInnerHTML={{ __html: courses }}></div>
+                    </div>
+                    <div className="card">
+                      <p className="card-title">Projects</p>
+                      <div className="card-content" dangerouslySetInnerHTML={{ __html: projects }}></div>
+                    </div>
                   </div>
                 </div>
-                </div>
-
               )}
             </div>
           </div>
