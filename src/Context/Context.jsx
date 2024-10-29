@@ -15,7 +15,7 @@ export const ContextProvider = (props) => {
         education: '',
         technologies: '',
         codingLevel: '',
-        otherProjects: '',
+        otherProjects: ''
     });
 
     const delayPara = (index, nextWord) => {
