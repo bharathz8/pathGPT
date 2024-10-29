@@ -4,7 +4,7 @@ import { assets } from "../../assets/assets";
 import { Context } from '../../Context/Context';
 
 const Main = () => {
-  const { onSent, recentPrompt, showResult, loading, resultData, setInput, input, formData, setFormData } = useContext(Context);
+  const { onSent, recentPrompt, showResult, loading, decision, courses, projects, formData, setFormData, newChat } = useContext(Context);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,15 +16,15 @@ const Main = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Pass formData to onSent for processing the response based on user input
-    onSent(formData);
+    // Trigger response processing
+    onSent();
   };
 
   return (
     <div className='main'>
       <div className='nav'>
         <p>pathGPT</p>
-        <img src={assets.user_icon} alt='user-icon' />
+        <img onClick={newChat} src={assets.user_icon} alt='user-icon' />
       </div>
 
       <div className='main-container'>
@@ -91,7 +91,7 @@ const Main = () => {
         ) : (
           <div className='result'>
             <div className='result-title'>
-              <img src={assets.user_icon} alt='user-icon' />
+              <button className='back-button' onClick={newChat}>Back</button>
               <p>{recentPrompt}</p>
             </div>
             <div className='result-data'>
@@ -103,7 +103,11 @@ const Main = () => {
                   <hr />
                 </div>
               ) : (
-                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                <div>
+                  <div><p><strong>Career Suggestion:</strong></p> <p dangerouslySetInnerHTML={{ __html: decision }}></p></div>
+                  <div><p><strong>Courses:</strong></p> <p dangerouslySetInnerHTML={{ __html: courses }}></p></div>
+                  <div><p><strong>Projects:</strong></p> <p dangerouslySetInnerHTML={{ __html: projects }}></p></div>
+                </div>
               )}
             </div>
           </div>
@@ -120,4 +124,3 @@ const Main = () => {
 };
 
 export default Main;
-
