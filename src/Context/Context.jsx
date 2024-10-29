@@ -10,6 +10,9 @@ export const ContextProvider = (props) => {
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
     const [resultData, setResultData] = useState("");
+    const [decision, setDecision] = useState("");
+    const [courses, setCourses] = useState("");
+    const [projects, setProjects] = useState("");
     const [formData, setFormData] = useState({
         desiredSkills: '',
         education: '',
@@ -24,14 +27,34 @@ export const ContextProvider = (props) => {
         }, 75 * index);
     };
 
+    const formatResponse = (text) => {
+        // Step 1: Format bold text with '**'
+        let formattedText = text
+            .split("**")
+            .map((segment, index) => (index % 2 === 1 ? `<b>${segment}</b>` : segment))
+            .join("");
+
+        // Step 2: Break the text into bullet points for each point (assuming "\n", "1.", "-", etc.)
+        formattedText = formattedText
+            .split(/(?:\d\.\s|- )|\n/g)  // Splits on '1. ', '- ', or '\n' to capture points
+            .filter(point => point.trim() !== "")  // Remove empty segments
+            .map(point => `<li>${point.trim()}</li>`)  // Wrap each point in <li> tags
+            .join("");  // Join the list items as a single string
+
+        return `<ul>${formattedText}</ul>`;  // Wrap all list items in <ul> tags
+    };
+
     const newChat = () => {
         setLoading(false);
         setShowResult(false);
         setResultData("");
+        setDecision("");
+        setCourses("");
+        setProjects("");
         setInput("");
         setRecentPrompt("");
         setPrevPrompt([]);
-        setFormData({  // Reset form data as well
+        setFormData({
             desiredSkills: '',
             education: '',
             technologies: '',
@@ -43,7 +66,10 @@ export const ContextProvider = (props) => {
     const onSent = async () => {
         setLoading(true);
         setShowResult(true);
-        setResultData("");  // Reset result data
+        setResultData("");
+        setDecision("");
+        setCourses("");
+        setProjects("");
 
         try {
             const { desiredSkills, education, technologies, codingLevel, otherProjects } = formData;
@@ -56,28 +82,16 @@ export const ContextProvider = (props) => {
                 firstCourse: desiredSkills
             };
 
-            const { decision, courseDisplay, project } = await run(prompt);
+            const { decision: responseDecision, courseDisplay, project } = await run(prompt);
+
+            // Format each part for bolding and structured bullet points
+            setDecision(formatResponse(responseDecision));
+            setCourses(formatResponse(courseDisplay));
+            setProjects(formatResponse(project));
 
             setRecentPrompt(input);
             setPrevPrompt(prev => [...prev, input]);
 
-            // Format and display results
-            let response = `**Career Suggestion:** ${decision} **Courses:** ${courseDisplay} **Projects:** ${project}`;
-            let responseArray = response.split("**");
-            let newResponse = "";
-            for (let i = 0; i < responseArray.length; i++) {
-                if (i === 0 || i % 2 !== 1) {
-                    newResponse += responseArray[i];
-                } else {
-                    newResponse += "<b>" + responseArray[i] + "</b>";
-                }
-            }
-            let newResponse2 = newResponse.split("*").join("</br>");
-            let newResponseArray = newResponse2.split(" ");
-            for (let i = 0; i < newResponseArray.length; i++) {
-                const nextWord = newResponseArray[i];
-                delayPara(i, nextWord + " ");
-            }
         } catch (error) {
             console.error("Error fetching response:", error);
             setResultData("An error occurred. Please try again.");
@@ -100,7 +114,10 @@ export const ContextProvider = (props) => {
         setInput,
         newChat,
         formData,
-        setFormData
+        setFormData,
+        decision,
+        courses,
+        projects
     };
 
     return (
