@@ -159,7 +159,7 @@ form {
     position: fixed;
     bottom: 0;
     width: 100%;
-    max-width: 900px;
+    
     padding: 10px 30px; /* Reduced padding */
     margin: auto;
     background-color: #f0f4f9; /* Optional: background color */
