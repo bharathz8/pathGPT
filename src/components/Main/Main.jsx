@@ -30,7 +30,7 @@ const Main = () => {
       <div className='main-container'>
         {!showResult ? (
           <>
-            <div className='greet'>
+            <div className='greet' style={{ marginTop: '0.313rem', marginBottom: '0.313rem' }}>
               <p><span>Enter the input</span></p>
               <p>To get your desired </p>
             </div>

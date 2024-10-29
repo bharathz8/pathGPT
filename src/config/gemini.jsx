@@ -40,7 +40,7 @@ import {
       const decision = result.response.text().trim() || "Unable to determine";
   
       // Best courses
-      const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should me completed and give in 5 points descriptivily   `;
+      const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should be  completed and give in 5 points descriptivily   `;
       console.log("Prompt for courses:", prompt_2);
   
       const result_2 = await model.generateContent(prompt_2);
