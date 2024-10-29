@@ -104,10 +104,22 @@ const Main = () => {
                 </div>
               ) : (
                 <div>
-                  <div><p><strong>Career Suggestion:</strong></p> <p dangerouslySetInnerHTML={{ __html: decision }}></p></div>
-                  <div><p><strong>Courses:</strong></p> <p dangerouslySetInnerHTML={{ __html: courses }}></p></div>
-                  <div><p><strong>Projects:</strong></p> <p dangerouslySetInnerHTML={{ __html: projects }}></p></div>
+                <div>
+                    <p className="card-title">Career Suggestion</p>
+                    <div className="card-content" dangerouslySetInnerHTML={{ __html: decision }}></div>
+                  </div>
+                <div className="cards-container">
+                  <div className="card">
+                    <p className="card-title">Courses</p>
+                    <div className="card-content" dangerouslySetInnerHTML={{ __html: courses }}></div>
+                  </div>
+                  <div className="card">
+                    <p className="card-title">Projects</p>
+                    <div className="card-content" dangerouslySetInnerHTML={{ __html: projects }}></div>
+                  </div>
                 </div>
+                </div>
+
               )}
             </div>
           </div>
