@@ -106,7 +106,7 @@ form {
     width: 100%;
     max-width: 180px;
     padding: 12px;
-    margin: 20px auto 0;
+    margin: 5px auto 0;
     background: linear-gradient(145deg, #6c63ff, #836fff);
     color: #ffffff;
     font-size: 14px;
@@ -160,9 +160,8 @@ form {
     position: fixed;
     bottom: 0;
     width: 100%;
-    
-    padding: 10px 30px; /* Reduced padding */
-    margin: auto;
+    padding: 0px 30px; /* Reduced padding */
+    margin: 0px auto auto;
     background-color: #f0f4f9; /* Optional: background color */
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for separation */
     z-index: 10; /* Ensure it’s above other elements */
@@ -203,6 +202,7 @@ form {
     margin: 15px auto;
     text-align: center;
     font-weight: 300;
+    padding-top: 0;
 }
 
 .result {

@@ -28,24 +28,39 @@ export const ContextProvider = (props) => {
     };
 
     const formatResponse = (text) => {
-        // Step 1: Apply bold to sections between '**'
-        let formattedText = text
-            .split("**")
-            .map((segment, index) => (index % 2 === 1 ? `<b>${segment}</b>` : segment))
-            .join("");
-    
-        // Step 2: Break text into lines and only add bullets to non-empty lines
-        const listItems = formattedText
-            .split(/(?:\d\.\s|- )|\n/g)  // Split on '1. ', '- ', or '\n'
-            .map(point => point.trim())  // Trim whitespace from each line
-            .filter(point => point !== "")  // Remove empty lines
-            .map(point => `<li>${point}</li>`)  // Wrap each non-empty line in <li> tags
-            .join("");  // Join all <li> items as a single string
-    
-        // Wrap in <ul> tags only if there are list items
-        return listItems ? `<ul>${listItems}</ul>` : "";  
-    };
+    // Remove any markdown-style asterisks
+    const cleanedText = text.replace(/\*\*/g, '').replace(/\*/g, '');
 
+    // Split text into lines, trim each, and filter out any empty lines
+    const formattedText = cleanedText
+        .split(/\n/g)
+        .map(line => line.trim())
+        .filter(line => line !== "")  // Remove empty lines
+        .map((line, index, array) => {
+            // Check if the line is a heading based on formatting rules
+            const isHeading = line.endsWith(":") || 
+                (index < array.length - 1 && array[index + 1].trim() !== "" && !array[index + 1].endsWith(":"));
+            
+            const isNumberedItem = /^\d+\.\s/.test(line); // Check if the line is a numbered item
+
+            // Format each line: bold for headings, indent content, and extra spacing for numbered items
+            const content = isHeading
+                ? `<div style="margin-top: 1em; font-weight: bold;">${line}</div>`
+                : `<div style="margin-left: 1em;">${line}</div>`;
+
+            // Add spacing before numbered items without adding bullets to empty lines
+            return isNumberedItem 
+                ? `<div style="margin-top: 1em;"></div>${content}`
+                : content;
+        })
+        .join("");  // Combine all formatted items into a single string
+
+    return formattedText;
+};
+
+    
+    
+    
     const newChat = () => {
         setLoading(false);
         setShowResult(false);

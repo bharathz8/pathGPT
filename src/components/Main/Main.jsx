@@ -41,6 +41,7 @@ const Main = () => {
                 <input
                   type="text"
                   name="desiredSkills"
+                  placeholder='eg: ai, web3, data science'
                   value={formData.desiredSkills}
                   onChange={handleChange}
                 />
@@ -51,6 +52,7 @@ const Main = () => {
                 <input
                   type="text"
                   name="education"
+                  placeholder='eg: bca'
                   value={formData.education}
                   onChange={handleChange}
                 />
@@ -61,6 +63,7 @@ const Main = () => {
                 <input
                   type="text"
                   name="technologies"
+                  placeholder='eg: html, css, react, express'
                   value={formData.technologies}
                   onChange={handleChange}
                 />
@@ -81,6 +84,7 @@ const Main = () => {
                 <textarea
                   name="otherProjects"
                   value={formData.otherProjects}
+                  placeholder='Experience/Projects in 1 or 2 lines'
                   onChange={handleChange}
                 ></textarea>
               </div>
