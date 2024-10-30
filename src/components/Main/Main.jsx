@@ -41,9 +41,10 @@ const Main = () => {
                 <input
                   type="text"
                   name="desiredSkills"
-                  placeholder='eg: ai, web3, data science'
+                  placeholder="eg: ai, web3, data science"
                   value={formData.desiredSkills}
                   onChange={handleChange}
+                  required
                 />
               </div>
 
@@ -52,9 +53,10 @@ const Main = () => {
                 <input
                   type="text"
                   name="education"
-                  placeholder='eg: bca'
+                  placeholder="eg: bca"
                   value={formData.education}
                   onChange={handleChange}
+                  required
                 />
               </div>
 
@@ -63,15 +65,21 @@ const Main = () => {
                 <input
                   type="text"
                   name="technologies"
-                  placeholder='eg: html, css, react, express'
+                  placeholder="eg: html, css, react, express"
                   value={formData.technologies}
                   onChange={handleChange}
+                  required
                 />
               </div>
 
               <div>
-                <label>Levels</label>
-                <select name="codingLevel" value={formData.codingLevel} onChange={handleChange}>
+                <label>Levels:</label>
+                <select
+                  name="codingLevel"
+                  value={formData.codingLevel}
+                  onChange={handleChange}
+                  required
+                >
                   <option value="">Select Level</option>
                   <option value="Beginner">Beginner</option>
                   <option value="Intermediate">Intermediate</option>
@@ -84,13 +92,14 @@ const Main = () => {
                 <textarea
                   name="otherProjects"
                   value={formData.otherProjects}
-                  placeholder='Experience/Projects in 1 or 2 lines'
+                  placeholder="Experience/Projects in 1 or 2 lines"
                   onChange={handleChange}
                 ></textarea>
               </div>
 
               <button type="submit">Submit</button>
             </form>
+
           </>
         ) : (
           <div className='result'>
@@ -106,7 +115,7 @@ const Main = () => {
                 </div>
               ) : (
                 <div>
-                <button className='back-button' onClick={newChat}>Back</button>
+                  <button className='back-button' onClick={newChat}>Back</button>
                   <div>
                     <p className="card-title">Career Suggestion</p>
                     <div className="card-content" dangerouslySetInnerHTML={{ __html: decision }}></div>

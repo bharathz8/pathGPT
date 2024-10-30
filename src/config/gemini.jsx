@@ -28,7 +28,7 @@ import {
   
       // Career suggestion
       const prompt = `Education: ${education}, skills: ${technologies}, Level: ${level}, Projects_done: ${projects}. Based on my education, skills, and level, which career should I opt for ${firstCourse}? Just tell me one branch in one word.`;
-      console.log("Prompt for career suggestion:", prompt);
+      //console.log("Prompt for career suggestion:", prompt);
   
       // Ensure the call to generateContent has the correct structure
       const result = await model.generateContent(prompt);
@@ -41,7 +41,7 @@ import {
   
       // Best courses
       const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should be  completed and give in 5 points descriptivily   `;
-      console.log("Prompt for courses:", prompt_2);
+      //console.log("Prompt for courses:", prompt_2);
   
       const result_2 = await model.generateContent(prompt_2);
   
@@ -53,7 +53,7 @@ import {
   
       //Trending projects
       const prompt_3 = `For a ${decision} career, suggest 5 trending projects to build my skills at ${level} level,i need it in 5 points .`;
-      console.log("Prompt for projects:", prompt_3);
+      //console.log("Prompt for projects:", prompt_3);
   
       const result_3 = await model.generateContent(prompt_3);
   

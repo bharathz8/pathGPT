@@ -28,35 +28,36 @@ export const ContextProvider = (props) => {
     };
 
     const formatResponse = (text) => {
-    // Remove any markdown-style asterisks
-    const cleanedText = text.replace(/\*\*/g, '').replace(/\*/g, '');
-
-    // Split text into lines, trim each, and filter out any empty lines
-    const formattedText = cleanedText
-        .split(/\n/g)
-        .map(line => line.trim())
-        .filter(line => line !== "")  // Remove empty lines
-        .map((line, index, array) => {
-            // Check if the line is a heading based on formatting rules
-            const isHeading = line.endsWith(":") || 
-                (index < array.length - 1 && array[index + 1].trim() !== "" && !array[index + 1].endsWith(":"));
-            
-            const isNumberedItem = /^\d+\.\s/.test(line); // Check if the line is a numbered item
-
-            // Format each line: bold for headings, indent content, and extra spacing for numbered items
-            const content = isHeading
-                ? `<div style="margin-top: 1em; font-weight: bold;">${line}</div>`
-                : `<div style="margin-left: 1em;">${line}</div>`;
-
-            // Add spacing before numbered items without adding bullets to empty lines
-            return isNumberedItem 
-                ? `<div style="margin-top: 1em;"></div>${content}`
-                : content;
-        })
-        .join("");  // Combine all formatted items into a single string
-
-    return formattedText;
-};
+        // Remove any markdown-style asterisks
+        const cleanedText = text.replace(/\*\*/g, '').replace(/\*/g, '');
+    
+        // Split text into lines, trim each, and filter out any empty lines
+        const formattedText = cleanedText
+            .split(/\n/g)
+            .map(line => line.trim())
+            .filter(line => line !== "")  // Remove empty lines
+            .map((line, index, array) => {  // Add 'array' parameter to access the full array
+                // Check if the line is a heading based on formatting rules
+                const isHeading = line.endsWith(":") || 
+                    (index === array.length - 1 || (index < array.length - 1 && array[index + 1].trim() !== "" && !array[index + 1].endsWith(":")));
+                
+                const isNumberedItem = /^\d+\.\s/.test(line); // Check if the line is a numbered item
+    
+                // Format each line: bold for headings, indent content, and extra spacing for numbered items
+                const content = isHeading
+                    ? `<div style="margin-top: 1em; font-weight: bold;">${line}</div>`
+                    : `<div style="margin-left: 1em;">${line}</div>`;
+    
+                // Add spacing before numbered items without adding bullets to empty lines
+                return isNumberedItem 
+                    ? `<div style="margin-top: 1em;"></div>${content}`
+                    : content;
+            })
+            .join("");  // Combine all formatted items into a single string
+    
+        return formattedText;
+    };
+    
 
     
     
