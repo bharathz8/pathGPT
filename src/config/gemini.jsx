@@ -24,7 +24,7 @@ import {
   export async function run({ education, technologies, level, projects, firstCourse }) {
     try {
       // Log inputs for debugging
-      console.log("Inputs for career suggestion:", { education, technologies, level, projects, firstCourse });
+      console.log("Welcome to PathGPT");
   
       // Career suggestion
       const prompt = `Education: ${education}, skills: ${technologies}, Level: ${level}, Projects_done: ${projects}. Based on my education, skills, and level, which career should I opt for ${firstCourse}? Just tell me one branch in one word.`;
@@ -40,7 +40,7 @@ import {
       const decision = result.response.text().trim() || "Unable to determine";
   
       // Best courses
-      const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should be  completed and give in 5 points descriptivily   `;
+      const prompt_2 = `can you give a roadmap to learn and master ${decision} , the roadmap should contain concepts to be learned and within how much hour or weeks it should be  completed and give in 5 points descriptively   `;
       //console.log("Prompt for courses:", prompt_2);
   
       const result_2 = await model.generateContent(prompt_2);
